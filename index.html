@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Medusa Quest</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ===== ФИКСИРОВАННЫЙ ХЕДЕР (МЕДУЗКА) ===== -->
+  <header class="topHud" id="topHud">
+    <div class="hud-scaler" id="hudScaler">
+      <div class="medusa-shell">
+        <div class="medusaPanel" id="topMedusa">
+          <div class="medusaPanelLeft" id="medusaAura">
+            <div class="medusaFigureWrap">
+              <div class="medusaSprite" id="medusaSprite">
+                <svg class="jelly-svg" viewBox="0 -20 300 670" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <radialGradient id="domeGrad" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="var(--medusa-top)" stop-opacity="0.98"/>
+                      <stop offset="30%" stop-color="var(--medusa-mid)" stop-opacity="0.95"/>
+                      <stop offset="60%" stop-color="var(--medusa-bot)" stop-opacity="0.8"/>
+                      <stop offset="100%" stop-color="var(--medusa-void)" stop-opacity="0.1"/>
+                    </radialGradient>
+                    <linearGradient id="frillGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--medusa-frill-top)" stop-opacity="0.95"/>
+                      <stop offset="30%" stop-color="var(--medusa-frill-mid)" stop-opacity="0.85"/>
+                      <stop offset="60%" stop-color="var(--medusa-frill-bot)" stop-opacity="0.6"/>
+                      <stop offset="100%" stop-color="var(--medusa-void)" stop-opacity="0.2"/>
+                    </linearGradient>
+                    <linearGradient id="thickGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--medusa-thick-top)" stop-opacity="0.9"/>
+                      <stop offset="20%" stop-color="var(--medusa-thick-mid)" stop-opacity="0.7"/>
+                      <stop offset="60%" stop-color="var(--medusa-thick-bot)" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="var(--medusa-void)" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="thinGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--medusa-thin-top)" stop-opacity="0.8"/>
+                      <stop offset="100%" stop-color="var(--medusa-void)" stop-opacity="0"/>
+                    </linearGradient>
+                    <filter id="eyeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="4" result="blur"/>
+                      <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <filter id="softGlow"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <filter id="tentacleGlow"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                  </defs>
+                  <ellipse cx="150" cy="95" rx="85" ry="85" fill="url(#domeGrad)" filter="url(#softGlow)"/>
+                  <g id="thinTentacles" stroke-linecap="round" fill="none" filter="url(#tentacleGlow)"></g>
+                  <g id="thickTentacles" stroke-linejoin="round" fill="url(#thickGrad)" filter="url(#tentacleGlow)"></g>
+                  <g id="frillTentacles" stroke-linecap="round" fill="none" filter="url(#softGlow)"></g>
+                  <g id="eyes">
+                    <ellipse cx="125" cy="90" rx="16" ry="20" fill="#7ae5ff" opacity="0.5" filter="url(#eyeGlow)">
+                      <animate attributeName="ry" values="20;20;2;20;20" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+                      <animate attributeName="opacity" values="0.5;0.5;0.1;0.5;0.5" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+                    </ellipse>
+                    <ellipse cx="125" cy="90" rx="9" ry="12" fill="#ffffff" opacity="0.6" filter="url(#eyeGlow)">
+                      <animate attributeName="ry" values="12;12;1;12;12" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+                      <animate attributeName="opacity" values="0.6;0.6;0;0.6;0.6" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+                    </ellipse>
+                    <ellipse cx="175" cy="90" rx="16" ry="20" fill="#7ae5ff" opacity="0.5" filter="url(#eyeGlow)">
+                      <animate attributeName="ry" values="20;20;2;20;20" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+                      <animate attributeName="opacity" values="0.5;0.5;0.1;0.5;0.5" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+                    </ellipse>
+                    <ellipse cx="175" cy="90" rx="9" ry="12" fill="#ffffff" opacity="0.6" filter="url(#eyeGlow)">
+                      <animate attributeName="ry" values="12;12;1;12;12" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+                      <animate attributeName="opacity" values="0.6;0.6;0;0.6;0.6" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+                    </ellipse>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="medusaPanelRight">
+            <div class="medusaPanelTopRow">
+              <div class="medusaBrandText">
+                <div class="medusaNameRow">
+                  <div class="medusaName">Медузка</div>
+                  <div class="medusaState" id="medusaState">спокойная</div>
+                </div>
+                <div class="medusaComment" id="medusaComment"></div>
+              </div>
+            </div>
+
+            <div class="medusaBars">
+              <div class="medusaMeta">
+                <div class="medusaLevelRow">
+                  <span>Уровень <span id="medusaLevel">1</span></span>
+                </div>
+                <div class="medusaXpBar">
+                  <div class="medusaXpFill" id="medusaXpFill"></div>
+                </div>
+              </div>
+
+              <div class="progressCard">
+                <div class="progressHead">
+                  <span>Прогресс главы</span>
+                  <span id="gameProgressText">0%</span>
+                </div>
+                <div class="progressBar">
+                  <div class="progressFill gameFill" id="gameProgressFill"></div>
+                </div>
+              </div>
+
+              <div class="progressCard ringProgress">
+                <div class="progressHead">
+                  <span>Восстановление Кольца</span>
+                  <span id="totalProgressText">0%</span>
+                </div>
+                <div class="progressBar">
+                  <div class="progressFill ringFill" id="totalProgressFill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== КОНТЕНТ (СКРОЛЛИТСЯ И МАСШТАБИРУЕТСЯ ОТДЕЛЬНО) ===== -->
+  <div id="appWrapper">
+    <div id="contentScaler">
+      <main id="workArea">
+        <details class="contentBlock chapterDetails" id="chapterBox" open>
+          <summary>
+            <div class="blockTitle">Текущая глава</div>
+            <div class="blockMainTitle" id="goalPreview">...</div>
+          </summary>
+          <div class="blockBody">
+            <div class="blockText" id="loreBox"></div>
+          </div>
+        </details>
+
+        <details class="contentBlock locationDetails" id="locationBox">
+          <summary>
+            <div class="blockTitle">Локация</div>
+            <div class="blockMainTitle" id="locationTitle"></div>
+          </summary>
+          <div class="blockBody">
+            <div class="blockText subtle" id="locationText"></div>
+          </div>
+        </details>
+
+        <section class="contentBlock">
+          <div class="blockTitle">Квесты</div>
+          <div class="questTabs" id="questTabs"></div>
+          <div class="questPanels" id="questPanels"></div>
+        </section>
+
+        <section class="bottomActions">
+          <button id="prevChapterBtn" type="button" disabled>◀ Предыдущая глава</button>
+          <button id="nextChapterBtn" type="button">Следующая глава ▶</button>
+          <button id="resetBtn" type="button">Сброс</button>
+          <button id="musicBtn" type="button">🎵 Вкл</button>
+          <button id="settingsBtn" type="button">⚙️ Настройки</button>
+          <button id="rebirthBtn" type="button" class="hidden">🔄 Переродиться (NG+)</button>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== ЧАТ (ФИКСИРОВАННЫЙ ВНИЗУ) ===== -->
+  <div class="medusa-chat-wrapper">
+    <div class="medusa-chat-toggle" id="chatToggle">
+      <span>💬 Спросить Медузку</span>
+    </div>
+    
+    <div class="medusa-chat-panel hidden" id="chatPanel">
+      <div class="medusa-chat-header">
+        <span class="medusa-chat-title">Медузка (онлайн)</span>
+        <button class="medusa-chat-close" id="chatClose">✕</button>
+        <button class="medusa-chat-clear" id="chatClear" title="Очистить чат">🗑</button>
+      </div>
+      <div class="medusa-chat-messages" id="chatMessages">
+        <div class="medusa-message medusa-bot">
+          Привет, Погасший! Я здесь, чтобы помочь тебе в Междуземье. Спрашивай о квестах, локациях или боссах!
+        </div>
+      </div>
+      <div class="medusa-chat-input-area">
+        <input type="text" class="medusa-chat-input" id="chatInput" placeholder="Например: Как пройти Годрика?" />
+        <button class="medusa-chat-send" id="chatSend">➤</button>
+      </div>
+      <div class="medusa-chat-key-hint">
+        <span style="font-size:9px; color:#aaa;">Для работы нужен API ключ OpenRouter.</span>
+      </div>
+    </div>
+  </div>
+
+  <footer style="text-align: center; padding: 10px; color: #777; font-size: 11px; background: transparent; position: relative; z-index: 100;">
+    Medusa Quest v1.0 — Сделано для себя и фанатов Элден Ринг. Данные сохраняются локально.
+  </footer>
+
+  <div class="levelUpOverlay hidden" id="levelUpOverlay" aria-hidden="true">
+    <div class="levelUpBurst" id="levelUpBurst"></div>
+  </div>
+
+  <!-- ===== ИНТРО (исправлено: добавлен полный SVG) ===== -->
+  <div class="overlay hidden" id="introOverlay" aria-hidden="true">
+    <div class="overlayCard">
+      <div class="introMedusaWrap" id="introMedusaWrap">
+        <svg class="jelly-svg" viewBox="0 -20 300 670" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="introDomeGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="var(--medusa-top)" stop-opacity="0.98"/>
+              <stop offset="30%" stop-color="var(--medusa-mid)" stop-opacity="0.95"/>
+              <stop offset="60%" stop-color="var(--medusa-bot)" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="var(--medusa-void)" stop-opacity="0.1"/>
+            </radialGradient>
+            <linearGradient id="introFrillGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--medusa-frill-top)" stop-opacity="0.95"/>
+              <stop offset="30%" stop-color="var(--medusa-frill-mid)" stop-opacity="0.85"/>
+              <stop offset="60%" stop-color="var(--medusa-frill-bot)" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="var(--medusa-void)" stop-opacity="0.2"/>
+            </linearGradient>
+            <linearGradient id="introThickGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--medusa-thick-top)" stop-opacity="0.9"/>
+              <stop offset="20%" stop-color="var(--medusa-thick-mid)" stop-opacity="0.7"/>
+              <stop offset="60%" stop-color="var(--medusa-thick-bot)" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="var(--medusa-void)" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="introThinGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--medusa-thin-top)" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="var(--medusa-void)" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="introEyeGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="introSoftGlow"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="introTentacleGlow"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <ellipse cx="150" cy="95" rx="85" ry="85" fill="url(#introDomeGrad)" filter="url(#introSoftGlow)"/>
+          <g id="introThinTentacles" stroke-linecap="round" fill="none" filter="url(#introTentacleGlow)"></g>
+          <g id="introThickTentacles" stroke-linejoin="round" fill="url(#introThickGrad)" filter="url(#introTentacleGlow)"></g>
+          <g id="introFrillTentacles" stroke-linecap="round" fill="none" filter="url(#introSoftGlow)"></g>
+          <g id="introEyes">
+            <ellipse cx="125" cy="90" rx="16" ry="20" fill="#7ae5ff" opacity="0.5" filter="url(#introEyeGlow)">
+              <animate attributeName="ry" values="20;20;2;20;20" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+              <animate attributeName="opacity" values="0.5;0.5;0.1;0.5;0.5" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+            </ellipse>
+            <ellipse cx="125" cy="90" rx="9" ry="12" fill="#ffffff" opacity="0.6" filter="url(#introEyeGlow)">
+              <animate attributeName="ry" values="12;12;1;12;12" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+              <animate attributeName="opacity" values="0.6;0.6;0;0.6;0.6" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+            </ellipse>
+            <ellipse cx="175" cy="90" rx="16" ry="20" fill="#7ae5ff" opacity="0.5" filter="url(#introEyeGlow)">
+              <animate attributeName="ry" values="20;20;2;20;20" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+              <animate attributeName="opacity" values="0.5;0.5;0.1;0.5;0.5" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+            </ellipse>
+            <ellipse cx="175" cy="90" rx="9" ry="12" fill="#ffffff" opacity="0.6" filter="url(#introEyeGlow)">
+              <animate attributeName="ry" values="12;12;1;12;12" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+              <animate attributeName="opacity" values="0.6;0.6;0;0.6;0.6" dur="4s" repeatCount="indefinite" keyTimes="0;0.9;0.95;0.97;1"/>
+            </ellipse>
+          </g>
+        </svg>
+      </div>
+      <div class="overlaySceneTitle">Вступление</div>
+      <div class="overlaySceneText" id="introText"></div>
+      <div class="overlayChoices" id="introChoices"></div>
+    </div>
+  </div>
+
+  <!-- ===== НАСТРОЙКИ ===== -->
+  <div class="overlay hidden" id="settingsOverlay" aria-hidden="true">
+    <div class="overlayCard settingsCard">
+      <div class="settingsHeader">
+        <h2>Настройки</h2>
+        <button class="settingsClose" id="settingsClose">✕</button>
+      </div>
+      <div class="settingsBody">
+        <label>
+          <span>API ключ OpenRouter</span>
+          <input type="password" id="settingsApiKey" placeholder="Введите ключ..." />
+        </label>
+        <label>
+          <span>Модель AI</span>
+          <select id="settingsModel">
+            <option value="deepseek/deepseek-chat">DeepSeek Chat</option>
+            <option value="openai/gpt-4">GPT-4</option>
+            <option value="anthropic/claude-3-opus">Claude 3 Opus</option>
+            <option value="google/gemini-pro">Gemini Pro</option>
+            <option value="mistralai/mistral-7b-instruct">Mistral 7B</option>
+          </select>
+        </label>
+        <label>
+          <span>Тема оформления</span>
+          <select id="settingsTheme">
+            <option value="auto">Автоматическая (по главе)</option>
+          </select>
+        </label>
+        <label>
+          <span>Ширина интерфейса</span>
+          <div class="rangeControl">
+            <span>300px</span>
+            <input type="range" id="settingsWidth" min="300" max="800" step="10" value="500" />
+            <span>800px</span>
+            <span id="widthValue">500px</span>
+          </div>
+        </label>
+        <label>
+          <span>Высота панели Медузки</span>
+          <div class="rangeControl">
+            <span>150px</span>
+            <input type="range" id="settingsHeight" min="150" max="400" step="10" value="250" />
+            <span>400px</span>
+            <span id="heightValue">250px</span>
+          </div>
+        </label>
+        <label>
+          <span>Масштаб Медузки (отдельно)</span>
+          <div class="rangeControl">
+            <span>0.5</span>
+            <input type="range" id="settingsHudScale" min="0.5" max="2.0" step="0.1" value="1.0" />
+            <span>2.0</span>
+            <span id="hudScaleValue">1.0</span>
+          </div>
+        </label>
+        <label>
+          <span>Масштаб контента (отдельно)</span>
+          <div class="rangeControl">
+            <span>0.5</span>
+            <input type="range" id="settingsContentScale" min="0.5" max="2.0" step="0.1" value="1.0" />
+            <span>2.0</span>
+            <span id="contentScaleValue">1.0</span>
+          </div>
+        </label>
+        <button id="resetSettingsBtn" type="button" class="resetSettingsBtn">Сбросить настройки</button>
+      </div>
+      <div class="settingsFooter">
+        <button id="settingsSave">Сохранить</button>
+        <button id="settingsCancel">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== СКРЫТЫЙ АУДИО-ПЛЕЕР ДЛЯ МУЗЫКИ ===== -->
+  <audio id="bgMusic" loop>
+    <source src="audio/bgm.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="app.js"></script>
+</body>
+</html>

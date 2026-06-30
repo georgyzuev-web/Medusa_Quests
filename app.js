@@ -478,10 +478,10 @@ function applySettings() {
   const musicBtn = document.getElementById('musicBtn');
   if (audio) {
     audio.volume = settings.musicVolume;
-    if (settings.musicEnabled) {
+    if (settings.musicEnabled && audio.paused) {
       audio.play().catch(() => {});
       if (musicBtn) musicBtn.textContent = '🎵 Вкл';
-    } else {
+    } else if (!settings.musicEnabled) {
       audio.pause();
       if (musicBtn) musicBtn.textContent = '🔇 Выкл';
     }
@@ -1613,6 +1613,7 @@ function applyThemeFromChapter() {
 function boot() {
   loadSettings();
   bindUI();
+  initAudioPlayOnInteraction(); // <-- Добавлено: автоматический запуск при клике
   loadGame().catch(err => {
     console.error('[Boot] Критическая ошибка загрузки:', err);
     setText('goalPreview', 'Ошибка');
@@ -1623,6 +1624,25 @@ function boot() {
     if (panels) panels.innerHTML = `<div class="questBody">${err.message}</div>`;
   });
   initMedusaAnimation();
+}
+
+// ==============================================
+// МАГИЯ ДЛЯ МУЗЫКИ: Играет при первом клике по странице
+// ==============================================
+function initAudioPlayOnInteraction() {
+    const audio = document.getElementById('bgMusic');
+    if (!audio) return;
+
+    const tryPlay = () => {
+        if (settings.musicEnabled && audio.paused) {
+            audio.play().catch(() => {});
+        }
+        document.removeEventListener('click', tryPlay);
+        document.removeEventListener('touchstart', tryPlay);
+    };
+
+    document.addEventListener('click', tryPlay);
+    document.addEventListener('touchstart', tryPlay);
 }
 
 if (document.readyState === 'loading') {

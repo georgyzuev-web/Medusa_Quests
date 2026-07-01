@@ -7,6 +7,7 @@
   --panel-height: 250px;
   --hud-scale: 1;
   --content-scale: 1;
+  --hud-offset: 0px; /* Новая переменная для сдвига */
 }
 
 * { box-sizing: border-box; }
@@ -27,7 +28,7 @@ button { font: inherit; }
 
 .topHud {
   position: fixed;
-  top: 0;
+  top: var(--hud-offset); /* Изменено: раньше было top: 0 */
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -355,7 +356,7 @@ button:active { transform: scale(0.95); }
 .rangeControl input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #e5c07b; cursor: pointer; }
 .rangeControl input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #e5c07b; cursor: pointer; }
 .rangeControl span { font-size: 12px; color: #aaa; }
-#widthValue, #heightValue, #hudScaleValue, #contentScaleValue { min-width: 30px; text-align: center; color: #e5c07b; font-weight: 600; }
+#widthValue, #heightValue, #hudScaleValue, #contentScaleValue, #hudOffsetValue { min-width: 30px; text-align: center; color: #e5c07b; font-weight: 600; }
 .resetSettingsBtn { background: rgba(255, 80, 80, 0.1); border: 1px solid rgba(255, 80, 80, 0.2); color: #ff8888; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s; font-size: 12px; }
 .resetSettingsBtn:hover { background: rgba(255, 80, 80, 0.2); border-color: #ff8888; }
 .settingsFooter { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }

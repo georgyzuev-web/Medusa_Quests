@@ -420,7 +420,7 @@ const defaultSettings = {
   height: 250,
   hudScale: 1.0,
   contentScale: 1.0,
-  // === НАСТРОЙКИ МУЗЫКИ ===
+  hudOffset: 0, // Новое поле: сдвиг блока Медузки вниз
   musicEnabled: true,
   musicVolume: 0.2
 };
@@ -468,6 +468,10 @@ function applySettings() {
     contentScaler.style.transformOrigin = `top center`;
   }
 
+  // === ПРИМЕНЕНИЕ СДВИГА БЛОКА МЕДУЗКИ ===
+  const hudOffset = settings.hudOffset || 0;
+  document.documentElement.style.setProperty('--hud-offset', hudOffset + 'px');
+
   const topHud = document.getElementById('topHud');
   const workArea = document.getElementById('workArea');
   if (topHud && workArea) {
@@ -510,6 +514,9 @@ function updateSettingsUI() {
   $('hudScaleValue').textContent = settings.hudScale.toFixed(1);
   $('settingsContentScale').value = settings.contentScale || 1.0;
   $('contentScaleValue').textContent = settings.contentScale.toFixed(1);
+  // Новый ползунок
+  $('settingsHudOffset').value = settings.hudOffset || 0;
+  $('hudOffsetValue').textContent = (settings.hudOffset || 0) + 'px';
 }
 
 function openSettings() {
@@ -536,6 +543,7 @@ function saveSettingsFromUI() {
   const height = parseInt($('settingsHeight').value) || 250;
   const hudScale = parseFloat($('settingsHudScale').value) || 1.0;
   const contentScale = parseFloat($('settingsContentScale').value) || 1.0;
+  const hudOffset = parseInt($('settingsHudOffset').value) || 0;
 
   settings.apiKey = apiKey;
   settings.model = model;
@@ -544,6 +552,7 @@ function saveSettingsFromUI() {
   settings.height = Math.min(400, Math.max(150, height));
   settings.hudScale = Math.min(2.0, Math.max(0.5, hudScale));
   settings.contentScale = Math.min(2.0, Math.max(0.5, contentScale));
+  settings.hudOffset = Math.min(200, Math.max(0, hudOffset));
 
   saveSettings();
   applySettings();
@@ -1615,7 +1624,7 @@ function applyThemeFromChapter() {
 function boot() {
   loadSettings();
   bindUI();
-  initAudioPlayOnInteraction(); // <-- Добавлено: автоматический запуск при клике
+  initAudioPlayOnInteraction();
   loadGame().catch(err => {
     console.error('[Boot] Критическая ошибка загрузки:', err);
     setText('goalPreview', 'Ошибка');
@@ -1628,9 +1637,6 @@ function boot() {
   initMedusaAnimation();
 }
 
-// ==============================================
-// МАГИЯ ДЛЯ МУЗЫКИ: Играет при первом клике по странице
-// ==============================================
 function initAudioPlayOnInteraction() {
     const audio = document.getElementById('bgMusic');
     if (!audio) return;
